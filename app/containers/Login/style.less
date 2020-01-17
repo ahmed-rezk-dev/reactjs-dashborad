@@ -1,0 +1,82 @@
+@import (reference) '../../Styles/default.less';
+.main-content {
+	background-color: @default-color;
+	border: 0;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	min-height: 100vh;
+	overflow: hidden;
+}
+.login-header {
+	background: -webkit-linear-gradient(
+		3deg,
+		@info-color,
+		@primary-color
+	) !important;
+	background: linear-gradient(87deg, @info-color, @primary-color) !important;
+	padding-top: 10rem;
+	padding-bottom: 14rem;
+	text-align: center;
+	.login-header-text,
+	.login-header-title {
+		text-align: center;
+		color: @white;
+	}
+	.separator {
+		left: 0;
+		right: 0;
+		width: 100%;
+		top: auto;
+		bottom: 0;
+		position: absolute;
+		pointer-events: none;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		overflow: hidden;
+		.separator-polygon {
+			fill: @default-color;
+		}
+	}
+}
+.login-footer {
+	display: grid;
+	justify-content: center;
+	align-content: space-around;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: @normal-color;
+	.login-footer-links {
+		display: flex;
+		justify-content: space-around;
+		padding: 1rem 2rem;
+	}
+}
+
+.login-form {
+	.ant-form-explain {
+		text-align: left;
+	}
+	.login-form-button {
+		margin: 1.5rem 0;
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+.form-card {
+	.card();
+	margin-top: -8rem;
+	min-width: @login-form-min-width;
+	max-width: @login-form-max-width;
+}
+.transitions {
+	.transitionsInRight();
+}
+.info {
+	text-align: left;
+	color: @disabled-color;
+	align-items: center;
+}
