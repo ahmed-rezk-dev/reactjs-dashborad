@@ -35,7 +35,13 @@ function LoginForm({ fetching, changeFormReducer, loginDis, form }) {
 			<Form onSubmit={handleSubmitForm} className="login-form">
 				<Form.Item hasFeedback>
 					{getFieldDecorator('email', {
-						rules: [{ required: true, message: 'Please input your Email!' }],
+						rules: [
+							{
+								type: 'email',
+								required: true,
+								message: 'Please input your Email!',
+							},
+						],
 					})(
 						<Input
 							prefix={<Icon type="mail" />}
