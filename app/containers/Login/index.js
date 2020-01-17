@@ -123,7 +123,7 @@ export function Login({
 		return loginForm;
 	});
 
-	const formHandler = useMemo(() => formHandlerMemo, [form]);
+	const formHandler = useMemo(() => formHandlerMemo, [form, login]);
 	return (
 		<div>
 			<div className="main-content" justify="center">
