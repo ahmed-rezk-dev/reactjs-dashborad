@@ -60,9 +60,7 @@ export function HomePage({ history }) {
 						<Breadcrumb.Item>Bill</Breadcrumb.Item>
 					</Breadcrumb>
 					{/* switchRoutes */}
-					<div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-						{switchRoutes}
-					</div>
+					<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
 				</Content>
 				{/* Footer */}
 				<Footer />

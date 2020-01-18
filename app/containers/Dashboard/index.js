@@ -15,40 +15,58 @@ import React, { memo } from 'react';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
-import { Button } from 'antd';
+import { Button, Row } from 'antd';
+import Metric from 'components/Metric';
 import { getAccount } from './actions';
 import makeSelectDashboard from './selectors';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-
+import {
+	UsersSvg,
+	MessagesSvg,
+	OrdersSvg,
+	MoneyBagSvg,
+} from '../../assets/svg';
+import './style.less';
 export function Dashboard({ fetchAccount }) {
 	useInjectReducer({ key: 'dashboard', reducer });
 	useInjectSaga({ key: 'dashboard', saga });
 
 	return (
-		<div>
-			<Helmet>
+		<>
+			{/* <Helmet>
 				<title>Dashboard</title>
 				<meta name="description" content="Description of Dashboard" />
-			</Helmet>
-			<FormattedMessage {...messages.header} />
-			<br />
-			{/* <Button
-				variant="contained"
-				color="secondary"
-				onClick={() => fetchAccount()}
-			>
-				Fetch Account
-			</Button> */}
-			<Button type="primary">Primary</Button>
-			<Button>Default</Button>
-			<Button type="dashed">Dashed</Button>
-			<Button type="danger">Danger</Button>
-			<Button type="link">Link</Button>
-			<br />
-			<br />
-		</div>
+			</Helmet> */}
+
+			<Row gutter={16} type="flex" justify="space-around">
+				<Metric
+					color="#2dce89"
+					icon={UsersSvg}
+					title="Users Total"
+					count="100,000"
+				></Metric>
+				<Metric
+					color="#f5365c"
+					icon={MessagesSvg}
+					title="Messages Total"
+					count="10,000"
+				></Metric>
+				<Metric
+					color="#1890ff"
+					icon={OrdersSvg}
+					title="Orders Total"
+					count="20,000"
+				></Metric>
+				<Metric
+					color="#613cea"
+					icon={MoneyBagSvg}
+					title="Money Total"
+					count="60,000"
+				></Metric>
+			</Row>
+		</>
 	);
 }
 
@@ -66,12 +84,6 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-const withConnect = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(
-	withConnect,
-	memo,
-)(Dashboard);
+export default compose(withConnect, memo)(Dashboard);
