@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Icon, Row, Avatar, Divider } from 'antd';
 // Style
 import './style.less';
+// Images
+import userImage from '../../assets/img/user.jpg';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -26,11 +28,7 @@ const Sidebar = ({ toggle, collapsed, routes, history }) => {
 	return (
 		<Sider collapsible collapsed={collapsed} onCollapse={toggle}>
 			<Row className="logo" type="flex" justify="center">
-				<Avatar
-					className="avatar-img"
-					size={100}
-					src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-				/>
+				<Avatar className="avatar-img" size={120} src={userImage} />
 				<h3 className="user-title">Ahmed Rezk</h3>
 				<small className="user-type-title">Super Admin</small>
 			</Row>
