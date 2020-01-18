@@ -11,7 +11,7 @@ const { Footer } = Layout;
 function FooterC() {
 	return (
 		<Footer style={{ textAlign: 'center' }}>
-			Ant Design ©2018 Created by Ant UED
+			React Dashboard ©2020 Created by Ahmed Rezk
 		</Footer>
 	);
 }
