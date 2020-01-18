@@ -175,7 +175,7 @@ export function Login({
 							title="work72019@gmail.com"
 						/>
 					</div>
-					<p>© 2020 Created by Ahmed Rezk</p>
+					<p>React Dashboard ©2020 Created by Ahmed Rezk</p>
 				</div>
 			</div>
 		</div>
