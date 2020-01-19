@@ -5,7 +5,18 @@
 import React from 'react';
 import loadable from 'utils/loadable';
 import { Spin } from 'antd';
-
+import '../../Styles/default.less';
 export default loadable(() => import('./index'), {
-	fallback: <Spin size="large" tip="Loading..." className="main-spin" />,
+	fallback: (
+		<Spin
+			size="large"
+			tip="Loading..."
+			style={{
+				position: 'absolute',
+				left: '50%',
+				top: '50%',
+				transform: 'translate(-50%, -50%)',
+			}}
+		/>
+	),
 });

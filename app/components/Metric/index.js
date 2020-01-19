@@ -15,7 +15,7 @@ import messages from './messages';
 function Metric({ color, icon, count, title }) {
 	return (
 		<Row type="flex" className="metric">
-			<Col className="metric-left" style={{ 'background-color': color }}>
+			<Col className="metric-left" style={{ backgroundColor: color }}>
 				{/* <Icon className="metric-icon" type="user" /> */}
 				<Icon component={icon} className="metric-icon" />
 			</Col>
