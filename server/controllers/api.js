@@ -570,6 +570,7 @@ exports.getChart = async (req, res, next) => {
 		.get(url)
 		.then(response => {
 			const arr = response.data['Time Series (Daily)'];
+			console.log('arr:', arr);
 			let dates = [];
 			let closing = []; // stock closing value
 			const keys = Object.getOwnPropertyNames(arr);

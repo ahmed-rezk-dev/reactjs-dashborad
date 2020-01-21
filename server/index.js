@@ -41,7 +41,21 @@ dotenv.config({ path: '.env' });
 // const { resolve } = require('path');
 
 const app = express();
+// const server = require('http').Server(app);
+const io = require('socket.io')();
 
+const portIo = 8000;
+io.listen(portIo);
+io.on('connection', socket => {
+	// console.log('socket', io);
+	socket.emit('greet', { hello: 'Hey there browser!' });
+	socket.on('respond', data => {
+		console.log(data);
+	});
+	socket.on('disconnect', () => {
+		console.log('Socket disconnected');
+	});
+});
 /**
  * Connect to MongoDB.
  */
@@ -63,7 +77,23 @@ mongoose.connection.on('error', err => {
  * Express configuration.
  */
 app.use(cors());
-app.use(expressStatusMonitor());
+app.use(
+	expressStatusMonitor({
+		title: 'Express Statusddd', // Default title
+		healthChecks: [
+			{
+				protocol: 'http',
+				host: '192.168.1.3',
+				port: '8000',
+			},
+			{
+				protocol: 'http',
+				host: '192.168.1.3',
+				port: '8000',
+			},
+		],
+	}),
+);
 app.use(compression());
 
 app.use(logger('dev'));
