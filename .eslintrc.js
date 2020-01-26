@@ -2,13 +2,19 @@ const fs = require('fs');
 const path = require('path');
 
 const prettierOptions = JSON.parse(
-	fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
+	fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8')
 );
 
 module.exports = {
 	parser: 'babel-eslint',
-	extends: ['airbnb', 'prettier', 'prettier/react'],
 	plugins: ['prettier', 'redux-saga', 'react', 'react-hooks', 'jsx-a11y'],
+	extends: [
+		'airbnb',
+		'prettier',
+		'prettier/react',
+		'eslint:recommended',
+		'plugin:react/recommended',
+	],
 	env: {
 		jest: true,
 		browser: true,
@@ -16,10 +22,11 @@ module.exports = {
 		es6: true,
 	},
 	parserOptions: {
-		ecmaVersion: 6,
+		ecmaVersion: 8,
 		sourceType: 'module',
 		ecmaFeatures: {
 			jsx: true,
+			modules: true,
 		},
 	},
 	rules: {
