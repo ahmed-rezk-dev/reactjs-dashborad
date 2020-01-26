@@ -68,7 +68,7 @@ mongoose.connection.on('error', err => {
 	console.error(err);
 	console.log(
 		'%s MongoDB connection error. Please make sure MongoDB is running.',
-		chalk.red('✗'),
+		chalk.red('✗')
 	);
 	process.exit();
 });
@@ -92,7 +92,7 @@ app.use(
 				port: '8000',
 			},
 		],
-	}),
+	})
 );
 app.use(compression());
 
@@ -109,7 +109,7 @@ app.use(
 			url: process.env.MONGODB_URI,
 			autoReconnect: true,
 		}),
-	}),
+	})
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -124,7 +124,7 @@ app.use((req, res, next) => {
 app.use(
 	lusca.csrf({
 		whitelist: ['/login'],
-	}),
+	})
 );
 
 // Add headers
@@ -135,13 +135,13 @@ app.use((req, res, next) => {
 	// Request methods you wish to allow
 	res.setHeader(
 		'Access-Control-Allow-Methods',
-		'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
 	);
 
 	// Request headers you wish to allow
 	res.setHeader(
 		'Access-Control-Allow-Headers',
-		'X-Requested-With,content-type,Authorization,x-token,x-refresh-token',
+		'X-Requested-With,content-type,Authorization,x-token,x-refresh-token'
 	);
 
 	// Set to true if you need the website to include cookies in the requests sent
@@ -191,7 +191,7 @@ app.use(
 		forwardPath(req, res) {
 			return require('url').parse(req.url).path;
 		},
-	}),
+	})
 );
 
 // Start your app.
