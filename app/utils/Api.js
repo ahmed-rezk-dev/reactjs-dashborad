@@ -1,5 +1,6 @@
 // a library to wrap and simplify api calls
 import axios from 'axios';
+import { message } from 'antd';
 import history from './history';
 
 // ------
@@ -19,6 +20,11 @@ api.interceptors.response.use(
 		// Return a successful response back to the calling service
 		response,
 	error => {
+		// Network Error Message
+		if (error.message === 'Network Error') {
+			message.success(error.message);
+		}
+
 		const {
 			config,
 			response: { status, data },
@@ -40,7 +46,7 @@ api.interceptors.response.use(
 		}
 
 		return Promise.reject(error);
-	},
+	}
 );
 
 // our "constructor"
