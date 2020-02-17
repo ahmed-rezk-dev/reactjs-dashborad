@@ -15,6 +15,7 @@ import {
 	LOAD_REPOS,
 	LOAD_REPOS_ERROR,
 	SET_CURRRENT_USER,
+	SET_CURRENT_ROUTE,
 } from './constants';
 
 const token = localStorage['x-refresh-token'];
@@ -29,6 +30,13 @@ export const initialState = {
 		isAuthenticated: token != null,
 		user: decodedToken,
 	},
+	currentRoute: {
+		path: '',
+		group: {},
+		name: '',
+		rtlName: '',
+		icon: '',
+	},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -38,6 +46,10 @@ const appReducer = (state = initialState, action) =>
 			case SET_CURRRENT_USER:
 				draft.auth.isAuthenticated = action.payload != null;
 				draft.auth.user = action.payload;
+				break;
+
+			case SET_CURRENT_ROUTE:
+				draft.currentRoute = action.payload;
 				break;
 
 			case LOAD_REPOS:

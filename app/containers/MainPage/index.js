@@ -10,35 +10,63 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 // import { FormattedMessage } from 'react-intl';
 // Antd
-import { Layout, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 // core components
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
-import Sidebar from 'components/Sidebar';
 // Routes
+// Style
+import './style.less';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { setCurrentRoute } from 'containers/App/actions';
+import { useInjectReducer } from 'utils/injectReducer';
 import routes from '../../routes';
-const { Content } = Layout;
+import reducer from '../App/reducer';
+const Sidebar = React.lazy(() => import('components/Sidebar'));
 // messages
 // import messages from './messages';
+const { Content } = Layout;
 
-export function HomePage({ history }) {
+export function HomePage({ history, setRoute, globalState }) {
+	useInjectReducer({ key: 'global', reducer });
 	const [collapsed, setCollapsed] = useState(false);
+	const { currentRoute } = globalState;
 	const toggle = () => {
 		setCollapsed(!collapsed);
 	};
-	const childProps = { collapsed, toggle, history };
+	const childProps = { collapsed, toggle, history, currentRoute };
+
+	// Remove Admin from current path
+	const currentPath = history.location.pathname;
+	// Convert current path to array of strings
+	const routeInfo = routes.find(element =>
+		element.group
+			? `${element.layout}/${element.group}${element.path}`
+			: element.layout + element.path === currentPath
+	);
+
+	setRoute(routeInfo);
 
 	const switchRoutes = (
 		<Switch>
 			{routes.map(prop => {
 				if (prop.layout === '/admin') {
-					return (
-						<Route
-							path={prop.layout + prop.path}
-							component={prop.component}
-							key={prop.path}
-						/>
-					);
+					const linkTo =
+						prop.group === undefined ? (
+							<Route
+								path={prop.layout + prop.path}
+								component={prop.component}
+								key={prop.path}
+							/>
+						) : (
+							<Route
+								path={`${prop.layout}/${prop.group.name}${prop.path}`}
+								component={prop.component}
+								key={prop.path}
+							/>
+						);
+					return linkTo;
 				}
 				return null;
 			})}
@@ -50,16 +78,10 @@ export function HomePage({ history }) {
 			{/* Sidebar */}
 			<Sidebar {...childProps} routes={routes} />
 			<Layout>
-				{/* Navbar */}
+				{/* Navbar  */}
 				<Navbar {...childProps} />
 				{/* Content */}
 				<Content style={{ margin: '0 16px' }}>
-					{/* Breadcrumb */}
-					<Breadcrumb style={{ margin: '16px 0' }}>
-						<Breadcrumb.Item>User</Breadcrumb.Item>
-						<Breadcrumb.Item>Bill</Breadcrumb.Item>
-					</Breadcrumb>
-					{/* switchRoutes */}
 					<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
 				</Content>
 				{/* Footer */}
@@ -71,6 +93,20 @@ export function HomePage({ history }) {
 
 HomePage.propTypes = {
 	history: PropTypes.object,
+	setRoute: PropTypes.func,
+	globalState: PropTypes.object,
 };
 
-export default HomePage;
+const mapStateToProps = state => ({
+	globalState: state.global,
+});
+
+function mapDispatchToProps(dispatch) {
+	return {
+		setRoute: data => dispatch(setCurrentRoute(data)),
+	};
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(HomePage);

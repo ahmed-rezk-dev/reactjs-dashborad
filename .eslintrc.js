@@ -43,7 +43,7 @@ module.exports = {
 		'import/prefer-default-export': 0,
 		'no-underscore-dangle': 0,
 		'node/no-unsupported-features/es-syntax': [
-			'error',
+			0,
 			{
 				version: '>=8.15.1',
 				ignores: ['modules', 'destructuring'],

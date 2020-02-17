@@ -15,12 +15,12 @@
  *    }
  */
 
-import { LOGIN_ERROR } from 'containers/Login/constants';
 import {
 	LOAD_REPOS,
 	LOAD_REPOS_SUCCESS,
 	LOAD_REPOS_ERROR,
 	SET_CURRRENT_USER,
+	SET_CURRENT_ROUTE,
 } from './constants';
 
 /**
@@ -46,6 +46,13 @@ export function loadRepos() {
 export function setCurrentUser(payload) {
 	return {
 		type: SET_CURRRENT_USER,
+		payload,
+	};
+}
+
+export function setCurrentRoute(payload) {
+	return {
+		type: SET_CURRENT_ROUTE,
 		payload,
 	};
 }

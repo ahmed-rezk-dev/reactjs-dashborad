@@ -20,40 +20,34 @@ import saga from './saga';
 import messages from './messages';
 
 export function UserProfile() {
-  useInjectReducer({ key: 'userProfile', reducer });
-  useInjectSaga({ key: 'userProfile', saga });
+	useInjectReducer({ key: 'userProfile', reducer });
+	useInjectSaga({ key: 'userProfile', saga });
 
-  return (
-    <div>
-      <Helmet>
-        <title>UserProfile</title>
-        <meta name="description" content="Description of UserProfile" />
-      </Helmet>
-      <FormattedMessage {...messages.header} />
-    </div>
-  );
+	return (
+		<div>
+			<Helmet>
+				<title>UserProfile</title>
+				<meta name="description" content="Description of UserProfile" />
+			</Helmet>
+			<FormattedMessage {...messages.header} />
+		</div>
+	);
 }
 
 UserProfile.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+	dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  userProfile: makeSelectUserProfile(),
+	userProfile: makeSelectUserProfile(),
 });
 
 function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
+	return {
+		dispatch,
+	};
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(
-  withConnect,
-  memo,
-)(UserProfile);
+export default compose(withConnect, memo)(UserProfile);
