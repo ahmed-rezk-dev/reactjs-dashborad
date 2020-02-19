@@ -13,6 +13,9 @@ import {
 	ROLES_ADD_SUCCESS,
 	ROLES_EDIT_SUCCESS,
 	ROLES_DELETE_SUCCESS,
+	ROLES_ERROR,
+	TOGGLE_ADD_MODAL,
+	TOGGLE_EDIT_MODAL,
 } from './constants';
 
 export function rolesRequest() {
@@ -25,6 +28,13 @@ export function rolesSuccess(data) {
 	return {
 		type: ROLES_SUCCESS,
 		data,
+	};
+}
+
+export function rolesError(payload) {
+	return {
+		type: ROLES_ERROR,
+		payload,
 	};
 }
 
@@ -65,5 +75,17 @@ export function rolesDeleteSuccess(payload) {
 	return {
 		type: ROLES_DELETE_SUCCESS,
 		payload,
+	};
+}
+
+export function toggleAddModal() {
+	return {
+		type: TOGGLE_ADD_MODAL,
+	};
+}
+
+export function toggleEditModal() {
+	return {
+		type: TOGGLE_EDIT_MODAL,
 	};
 }

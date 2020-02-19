@@ -1,4 +1,5 @@
 import { call, put, takeLatest, all } from 'redux-saga/effects';
+import { message } from 'antd';
 import {
 	ROLES_REQUEST,
 	ROLES_DELETE,
@@ -11,27 +12,27 @@ import {
 	rolesAddSuccess,
 	rolesEditSuccess,
 	rolesDeleteSuccess,
+	rolesError,
+	toggleAddModal,
 } from './actions';
 
 // FETCH
 function* fetchRoles() {
-	try {
-		const response = yield call(Api.getRoles);
-		yield put(rolesSuccess(response.data.data));
-	} catch (error) {
-		console.error('error:', error);
-	}
+	const response = yield call(Api.getRoles);
+	yield put(rolesSuccess(response.data.data));
 }
 
 // ADD
 function* addRoles({ payload }) {
 	try {
-		// const response = yield call(Api.getRoles);
-		yield put(rolesAddSuccess(payload));
+		const { data } = yield call(Api.addRoles, payload);
+		yield put(rolesAddSuccess(data));
+		yield put(toggleAddModal());
+		message.error(data.msg);
 	} catch (error) {
 		const { data } = error.response;
-		// yield put(errorAction(data));
-		console.error('error:', error);
+		yield put(rolesError());
+		message.error(data.msg);
 	}
 }
 
@@ -43,7 +44,7 @@ function* editRoles({ payload }) {
 		yield put(rolesEditSuccess({ data: payload.data, index: payload.index }));
 	} catch (error) {
 		console.error('error:', error);
-		const { data } = error.response;
+		// const { data } = error.response;
 		// yield put(errorAction(data));
 	}
 }
@@ -55,7 +56,7 @@ function* deleteRoles({ payload }) {
 		yield put(rolesDeleteSuccess({ index: payload.index }));
 	} catch (error) {
 		console.error('error:', error);
-		const { data } = error.response;
+		// const { data } = error.response;
 		// yield put(errorAction(data));
 	}
 }

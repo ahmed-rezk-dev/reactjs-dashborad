@@ -23,10 +23,17 @@ exports.store = (req, res, next) => {
 	const newRole = new Role({
 		name: req.body.name,
 	});
-	newRole.save(err => {
+	newRole.save((err, data) => {
+		if (err && err.code === 11000) {
+			return res.status(400).json({
+				status: 'error',
+				msg: 'This role is already exist!',
+			});
+		}
 		if (err) return next(err);
 		return res.status(200).json({
 			status: 'success',
+			data,
 			msg: 'successfuly created',
 		});
 	});
@@ -46,7 +53,7 @@ exports.find = ({ params }, res, next) => {
 				if (err) {
 					return next(err);
 				}
-			},
+			}
 		);
 	});
 	return res.status(200).json({
@@ -98,7 +105,7 @@ exports.delete = ({ params }, res, next) => {
 				if (err) {
 					return next(err);
 				}
-			},
+			}
 		);
 	});
 	return res.status(200).json({

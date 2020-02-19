@@ -13,6 +13,9 @@ import {
 	ROLES_ADD_SUCCESS,
 	ROLES_EDIT_SUCCESS,
 	ROLES_DELETE_SUCCESS,
+	ROLES_ERROR,
+	TOGGLE_ADD_MODAL,
+	TOGGLE_EDIT_MODAL,
 } from './constants';
 
 export const initialState = {
@@ -20,7 +23,10 @@ export const initialState = {
 	isLoading: false,
 	error: false,
 	payload: null,
+	msg: null,
 	data: [],
+	toggleAddModal: false,
+	toggleEditModal: false,
 	form: 'roles',
 };
 
@@ -36,12 +42,18 @@ const rolesReducer = (state = initialState, action) =>
 				draft.fetching = false;
 				draft.isLoading = false;
 				break;
+			case ROLES_ERROR:
+				draft.isLoading = false;
+				draft.payload = payload;
+				draft.error = true;
+				break;
 			case ROLES_ADD:
 				draft.payload = payload;
 				draft.isLoading = true;
 				break;
 			case ROLES_ADD_SUCCESS:
-				draft.data.push(payload);
+				draft.data.push(payload.data);
+				draft.msg = payload.msg;
 				draft.isLoading = false;
 				break;
 			case ROLES_EDIT:
@@ -59,6 +71,12 @@ const rolesReducer = (state = initialState, action) =>
 			case ROLES_DELETE_SUCCESS:
 				delete draft.data.splice(payload.index, 1);
 				draft.isLoading = false;
+				break;
+			case TOGGLE_ADD_MODAL:
+				draft.toggleAddModal = !state.toggleAddModal;
+				break;
+			case TOGGLE_EDIT_MODAL:
+				draft.toggleEditModal = !state.toggleEditModal;
 				break;
 			default:
 				return draft;

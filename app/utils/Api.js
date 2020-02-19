@@ -75,6 +75,9 @@ const create = () => {
 	const postResetPassword = data => api.post(`reset/${data.token}`, data);
 	// Roles
 	const getRoles = () => api.get('roles');
+	const addRoles = data => api.post('roles', data);
+	const editRoles = data => api.put(`roles/${data.id}`, data);
+	const deleteRoles = data => api.delete(`roles/${data.id}`);
 
 	// users
 	const getUserProfile = data => api.get('user/profile', {}, { headers: data });
@@ -144,6 +147,9 @@ const create = () => {
 		getCheckResetToken,
 		postResetPassword,
 		getRoles,
+		addRoles,
+		editRoles,
+		deleteRoles,
 	};
 };
 
