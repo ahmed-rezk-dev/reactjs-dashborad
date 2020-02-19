@@ -77,11 +77,11 @@ export function HomePage({ history, setRoute, globalState }) {
 		<Layout style={{ minHeight: '100vh' }}>
 			{/* Sidebar */}
 			<Sidebar {...childProps} routes={routes} />
-			<Layout>
+			<Layout style={{ marginLeft: 200 }}>
 				{/* Navbar  */}
 				<Navbar {...childProps} />
 				{/* Content */}
-				<Content style={{ margin: '0 16px' }}>
+				<Content style={{ padding: '0 50px', marginTop: 64 }}>
 					<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
 				</Content>
 				{/* Footer */}

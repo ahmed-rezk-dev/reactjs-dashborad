@@ -4,10 +4,11 @@
  *
  */
 
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Layout, Menu, Icon, Row, Avatar, Divider } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
+import { Spring, animated } from 'react-spring/renderprops';
 // Style
 import './style.less';
 // Images
@@ -17,15 +18,6 @@ const { SubMenu } = Menu;
 
 const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 	const currentPath = history.location.pathname;
-
-	// Avatar
-	const avatarFunc = () => {
-		if (!collapsed) {
-			return <Avatar className="avatar-img" size={120} src={userImage} />;
-		}
-		return null;
-	};
-	const memoizedAvatar = useMemo(avatarFunc, [collapsed]);
 
 	// Convert Routes tp groups
 	const groupBy = (list, keyGetter) => {
@@ -95,21 +87,70 @@ const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 	});
 
 	return (
-		<Sider collapsible collapsed={collapsed} onCollapse={toggle}>
-			<Row className="logo" type="flex" justify="center">
-				{memoizedAvatar}
-				<h3 className="user-title">Ahmed Rezk</h3>
-				<small className="user-type-title">Super Admin</small>
-			</Row>
-			<Divider />
-			<Menu
-				defaultSelectedKeys={[currentPath]}
-				defaultOpenKeys={[currentRoute.group ? currentRoute.group.name : null]}
-				mode="inline"
-				className="menu"
+		<Sider
+			collapsible
+			collapsed={collapsed}
+			onCollapse={toggle}
+			className="sidebar"
+			trigger={null}
+		>
+			<Spring
+				native
+				from={{ opacity: 0, marginTop: -1000, menuLeft: '-210px' }}
+				to={{
+					opacity: 1,
+					marginTop: 0,
+					menuLeft: '0px',
+					minHeight: collapsed ? '80px' : '176px',
+					imgMaxWidth: collapsed ? '65px' : '100px',
+					h3Size: collapsed ? '0rem' : '1rem',
+					smallSize: collapsed ? '0rem' : '0.7rem',
+				}}
 			>
-				{links}
-			</Menu>
+				{({
+					minHeight,
+					imgMaxWidth,
+					h3Size,
+					smallSize,
+					opacity,
+					marginTop,
+					menuLeft,
+				}) => (
+					<>
+						<animated.div
+							className="logo"
+							style={{ minHeight, opacity, marginTop }}
+						>
+							<animated.img
+								src={userImage}
+								className="avatar-img"
+								style={{ width: imgMaxWidth, height: imgMaxWidth }}
+							/>
+							<animated.h3 className="user-title" style={{ fontSize: h3Size }}>
+								Ahmed Rezk
+							</animated.h3>
+							<animated.small
+								className="user-type-title"
+								style={{ fontSize: smallSize }}
+							>
+								Super Admin
+							</animated.small>
+						</animated.div>
+						<animated.div className="menuContainer" style={{ left: menuLeft }}>
+							<Menu
+								defaultSelectedKeys={[currentPath]}
+								defaultOpenKeys={[
+									currentRoute.group ? currentRoute.group.name : null,
+								]}
+								mode="inline"
+								className="menu"
+							>
+								{links}
+							</Menu>
+						</animated.div>
+					</>
+				)}
+			</Spring>
 		</Sider>
 	);
 };
