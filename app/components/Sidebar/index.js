@@ -8,27 +8,13 @@ import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
-import { Spring, animated, config } from 'react-spring/renderprops';
+import { Spring, animated } from 'react-spring/renderprops';
 // Style
 import './style.less';
 // Images
 import userImage from '../../assets/img/user.jpg';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
-const styles = {
-	container: {
-		// marginBottom: '1rem',
-		// display: 'flex',
-		// flexDirection: 'column',
-		// alignItems: 'center',
-		// justifyContent: 'center',
-		// background: '#6064f4',
-		// borderBottomLeftRadius: '100%',
-		// borderBottomRightRadius: '100%',
-		// minHeight: '176px',
-		// willChange: 'transform',
-	},
-};
 const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 	const currentPath = history.location.pathname;
 
@@ -134,7 +120,6 @@ const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 						<animated.div
 							className="logo"
 							style={{
-								...styles.container,
 								minHeight,
 								minWidth,
 								opacity,

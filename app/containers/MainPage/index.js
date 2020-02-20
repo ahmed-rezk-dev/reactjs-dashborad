@@ -83,7 +83,7 @@ export function HomePage({ history, setRoute, globalState }) {
 				<Navbar {...childProps} />
 				{/* Content */}
 				<Scrollbars>
-					<Content style={{ padding: '0 50px', marginTop: 64 }}>
+					<Content style={{ marginTop: 30 }}>
 						<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
 					</Content>
 					{/* Footer */}
