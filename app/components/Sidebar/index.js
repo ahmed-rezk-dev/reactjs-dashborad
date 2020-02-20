@@ -8,14 +8,27 @@ import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
-import { Spring, animated } from 'react-spring/renderprops';
+import { Spring, animated, config } from 'react-spring/renderprops';
 // Style
 import './style.less';
 // Images
 import userImage from '../../assets/img/user.jpg';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
-
+const styles = {
+	container: {
+		// marginBottom: '1rem',
+		// display: 'flex',
+		// flexDirection: 'column',
+		// alignItems: 'center',
+		// justifyContent: 'center',
+		// background: '#6064f4',
+		// borderBottomLeftRadius: '100%',
+		// borderBottomRightRadius: '100%',
+		// minHeight: '176px',
+		// willChange: 'transform',
+	},
+};
 const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 	const currentPath = history.location.pathname;
 
@@ -96,47 +109,67 @@ const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 		>
 			<Spring
 				native
-				from={{ opacity: 0, marginTop: -1000, menuLeft: '-210px' }}
+				from={{ opacity: 0, marginTop: -1000 }}
 				to={{
 					opacity: 1,
 					marginTop: 0,
-					menuLeft: '0px',
 					minHeight: collapsed ? '80px' : '176px',
-					imgMaxWidth: collapsed ? '65px' : '100px',
-					h3Size: collapsed ? '0rem' : '1rem',
-					smallSize: collapsed ? '0rem' : '0.7rem',
+					minWidth: collapsed ? '80px' : '200px',
+					width: collapsed ? '65px' : '100px',
+					height: collapsed ? '65px' : '100px',
+					fontSize: collapsed ? '0rem' : '1rem',
+					marginRight: collapsed ? '0' : '200px',
 				}}
 			>
 				{({
 					minHeight,
-					imgMaxWidth,
-					h3Size,
-					smallSize,
+					minWidth,
+					width,
+					height,
+					fontSize,
 					opacity,
 					marginTop,
-					menuLeft,
 				}) => (
 					<>
 						<animated.div
 							className="logo"
-							style={{ minHeight, opacity, marginTop }}
+							style={{
+								...styles.container,
+								minHeight,
+								minWidth,
+								opacity,
+								marginTop,
+							}}
 						>
 							<animated.img
 								src={userImage}
 								className="avatar-img"
-								style={{ width: imgMaxWidth, height: imgMaxWidth }}
+								style={{ width, height }}
 							/>
-							<animated.h3 className="user-title" style={{ fontSize: h3Size }}>
+							<animated.h3 className="user-title" style={{ fontSize }}>
 								Ahmed Rezk
 							</animated.h3>
 							<animated.small
 								className="user-type-title"
-								style={{ fontSize: smallSize }}
+								style={{ fontSize: collapsed ? '0rem' : '0.7rem' }}
 							>
 								Super Admin
 							</animated.small>
 						</animated.div>
-						<animated.div className="menuContainer" style={{ left: menuLeft }}>
+					</>
+				)}
+			</Spring>
+			<Spring
+				native
+				from={{ left: '-210px' }}
+				to={{
+					left: '0px',
+					minWidth: collapsed ? 'auto' : '200px',
+				}}
+			>
+				{({ left, minWidth }) => (
+					<>
+						<animated.div className="menuContainer" style={{ left, minWidth }}>
 							<Menu
 								defaultSelectedKeys={[currentPath]}
 								defaultOpenKeys={[

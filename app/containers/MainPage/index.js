@@ -8,6 +8,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Scrollbars } from 'react-custom-scrollbars';
 // import { FormattedMessage } from 'react-intl';
 // Antd
 import { Layout } from 'antd';
@@ -77,15 +78,17 @@ export function HomePage({ history, setRoute, globalState }) {
 		<Layout style={{ minHeight: '100vh' }}>
 			{/* Sidebar */}
 			<Sidebar {...childProps} routes={routes} />
-			<Layout style={{ marginLeft: 200 }}>
+			<Layout>
 				{/* Navbar  */}
 				<Navbar {...childProps} />
 				{/* Content */}
-				<Content style={{ padding: '0 50px', marginTop: 64 }}>
-					<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
-				</Content>
-				{/* Footer */}
-				<Footer />
+				<Scrollbars>
+					<Content style={{ padding: '0 50px', marginTop: 64 }}>
+						<div style={{ padding: 24, minHeight: 360 }}>{switchRoutes}</div>
+					</Content>
+					{/* Footer */}
+					<Footer />
+				</Scrollbars>
 			</Layout>
 		</Layout>
 	);
