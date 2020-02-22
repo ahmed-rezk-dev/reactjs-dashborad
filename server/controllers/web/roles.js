@@ -64,10 +64,10 @@ exports.find = ({ params }, res, next) => {
 
 // update
 exports.update = ({ params, body }, res, next) => {
-	console.log('====================================');
-	console.log(body);
-	console.log('====================================');
-	Role.findById(params.id, (err, role) => {
+	const query = { _id: params.id };
+	const update = { name: body.name };
+	const options = { new: true };
+	Role.findByIdAndUpdate(query, update, options, (err, doc) => {
 		if (err) {
 			if (err.kind === 'ObjectId') {
 				return res.status(400).json({
@@ -78,15 +78,10 @@ exports.update = ({ params, body }, res, next) => {
 			return next(err);
 		}
 
-		role.name = body.name;
-		role.save(err => {
-			if (err) {
-				return next(err);
-			}
-			return res.status(200).json({
-				status: 'success',
-				msg: 'Successfly updated.',
-			});
+		return res.status(200).json({
+			status: 'success',
+			msg: 'Successfully updated.',
+			doc,
 		});
 	});
 };

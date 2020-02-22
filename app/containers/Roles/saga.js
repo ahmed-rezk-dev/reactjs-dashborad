@@ -14,6 +14,7 @@ import {
 	rolesDeleteSuccess,
 	rolesError,
 	toggleAddModal,
+	toggleEditModal,
 } from './actions';
 
 // FETCH
@@ -38,14 +39,15 @@ function* addRoles({ payload }) {
 
 // EDIT
 function* editRoles({ payload }) {
-	console.log('payload in saga:', payload);
 	try {
-		// const response = yield call(Api.getRoles);
-		yield put(rolesEditSuccess({ data: payload.data, index: payload.index }));
+		const { data } = yield call(Api.editRoles, payload);
+		yield put(rolesEditSuccess({ doc: data.doc, index: payload.index }));
+		message.error(data.msg);
+		yield put(toggleEditModal());
 	} catch (error) {
-		console.error('error:', error);
-		// const { data } = error.response;
-		// yield put(errorAction(data));
+		const { data } = error.response;
+		yield put(rolesError());
+		message.error(data.msg);
 	}
 }
 

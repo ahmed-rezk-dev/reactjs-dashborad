@@ -76,7 +76,7 @@ const create = () => {
 	// Roles
 	const getRoles = () => api.get('roles');
 	const addRoles = data => api.post('roles', data);
-	const editRoles = data => api.put(`roles/${data.id}`, data);
+	const editRoles = data => api.put(`roles/${data._id}`, { name: data.name });
 	const deleteRoles = data => api.delete(`roles/${data.id}`);
 
 	// users

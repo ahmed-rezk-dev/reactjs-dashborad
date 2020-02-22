@@ -61,7 +61,7 @@ const rolesReducer = (state = initialState, action) =>
 				draft.isLoading = true;
 				break;
 			case ROLES_EDIT_SUCCESS:
-				draft.data[payload.index] = payload.data;
+				draft.data[payload.index] = payload.doc;
 				draft.isLoading = false;
 				break;
 			case ROLES_DELETE:

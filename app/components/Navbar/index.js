@@ -13,7 +13,6 @@ import { Spring, animated } from 'react-spring/renderprops';
 import './style.less';
 import UserMenu from 'components/UserMenu';
 import NotificationsMenu from 'components/NotificationsMenu';
-// import CustomBreadcrumb from 'components/CustomBreadcrumb';
 const CustomBreadcrumb = React.lazy(() =>
 	import('components/CustomBreadcrumb')
 );

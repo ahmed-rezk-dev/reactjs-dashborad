@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { FormattedMessage } from 'react-intl';
@@ -15,6 +15,7 @@ import { Table, Input, Button, Popconfirm, Form, Modal, Card } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 // import TableSkeleton from 'components/TableSkeleton';
+import moment from 'moment';
 import makeSelectRoles from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,21 +35,36 @@ export function Roles({
 	roles,
 	addRoles,
 	form,
-	// editRoles,
+	editRoles,
 	// deleteRoles,
 	toggleAddModalAction,
 	toggleEditModalAction,
 }) {
 	useInjectReducer({ key: 'roles', reducer });
 	useInjectSaga({ key: 'roles', saga });
+	const [editFromValues, setEditFromValues] = useState(null);
 
 	useEffect(() => {
 		fetchRoles();
 	}, []);
 
-	const handleEdit = () => {
+	const openEditModalHandler = record => {
+		const index = roles.data.indexOf(record);
 		toggleEditModalAction();
+		setEditFromValues({ index, _id: record._id });
+		form.setFieldsValue({ name: record.name });
 	};
+
+	// Edit sublimation func
+	const handleEdit = e => {
+		e.preventDefault();
+		form.validateFields((err, values) => {
+			if (!err) {
+				editRoles({ ...values, ...editFromValues });
+			}
+		});
+	};
+	// Add sublimation func
 	const handleAdd = e => {
 		e.preventDefault();
 		form.validateFields((err, values) => {
@@ -56,6 +72,10 @@ export function Roles({
 				addRoles(values);
 			}
 		});
+	};
+
+	const afterCloseHandler = () => {
+		form.resetFields();
 	};
 
 	const handleDelete = key => {
@@ -81,11 +101,13 @@ export function Roles({
 			title: 'Created At',
 			dataIndex: 'createdAt',
 			key: 'createdAt',
+			render: time => moment(time).format('ddd, MMM D, YYYY, h:mm.a'),
 		},
 		{
 			title: 'Last Update',
 			dataIndex: 'updatedAt',
 			key: 'updatedAt',
+			render: time => moment(time).format('ddd, MMM D, YYYY, h:mm.a'),
 		},
 		{
 			title: 'operation',
@@ -98,7 +120,7 @@ export function Roles({
 						<Button
 							type="primary"
 							icon="edit"
-							onClick={() => toggleEditModalAction()}
+							onClick={() => openEditModalHandler(record)}
 						>
 							Edit
 						</Button>
@@ -137,10 +159,20 @@ export function Roles({
 				visible={roles.toggleEditModal}
 				onOk={handleEdit}
 				onCancel={() => toggleEditModalAction()}
+				afterClose={() => afterCloseHandler()}
 			>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
+				<Form className="add-role">
+					<Form.Item hasFeedback>
+						{getFieldDecorator('name', {
+							rules: [
+								{
+									required: true,
+									message: 'Please enter role name!',
+								},
+							],
+						})(<Input placeholder="Role Name" size="large" />)}
+					</Form.Item>
+				</Form>
 			</Modal>
 			<Modal
 				title="Add"
@@ -149,7 +181,7 @@ export function Roles({
 				onCancel={() => toggleAddModalAction()}
 				confirmLoading={roles.isLoading}
 			>
-				<Form className="login-form">
+				<Form className="add-role">
 					<Form.Item hasFeedback>
 						{getFieldDecorator('name', {
 							rules: [
@@ -169,7 +201,7 @@ export function Roles({
 Roles.propTypes = {
 	fetchRoles: PropTypes.func.isRequired,
 	addRoles: PropTypes.func.isRequired,
-	// editRoles: PropTypes.func.isRequired,
+	editRoles: PropTypes.func.isRequired,
 	// deleteRoles: PropTypes.func.isRequired,
 	roles: PropTypes.object.isRequired,
 	form: PropTypes.object,
