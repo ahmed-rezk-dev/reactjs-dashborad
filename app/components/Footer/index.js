@@ -8,11 +8,10 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 const { Footer } = Layout;
+const styled = { textAlign: 'center' };
 function FooterC() {
 	return (
-		<Footer style={{ textAlign: 'center' }}>
-			React Dashboard ©2020 Created by Ahmed Rezk
-		</Footer>
+		<Footer style={styled}>React Dashboard ©2020 Created by Ahmed Rezk</Footer>
 	);
 }
 

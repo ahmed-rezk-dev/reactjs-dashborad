@@ -9,7 +9,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
-// import { FormattedMessage } from 'react-intl';
 // Antd
 import { Layout } from 'antd';
 // core components
