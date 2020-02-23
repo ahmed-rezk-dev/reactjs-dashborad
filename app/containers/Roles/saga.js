@@ -29,7 +29,7 @@ function* addRoles({ payload }) {
 		const { data } = yield call(Api.addRoles, payload);
 		yield put(rolesAddSuccess(data));
 		yield put(toggleAddModal());
-		message.error(data.msg);
+		message.success(data.msg);
 	} catch (error) {
 		const { data } = error.response;
 		yield put(rolesError());
@@ -42,7 +42,7 @@ function* editRoles({ payload }) {
 	try {
 		const { data } = yield call(Api.editRoles, payload);
 		yield put(rolesEditSuccess({ doc: data.doc, index: payload.index }));
-		message.error(data.msg);
+		message.success(data.msg);
 		yield put(toggleEditModal());
 	} catch (error) {
 		const { data } = error.response;
@@ -54,12 +54,13 @@ function* editRoles({ payload }) {
 // DELETE
 function* deleteRoles({ payload }) {
 	try {
-		// const response = yield call(Api.getRoles);
+		const { data } = yield call(Api.deleteRoles, payload);
 		yield put(rolesDeleteSuccess({ index: payload.index }));
+		message.success(data.msg);
 	} catch (error) {
-		console.error('error:', error);
-		// const { data } = error.response;
-		// yield put(errorAction(data));
+		const { data } = error.response;
+		yield put(rolesError());
+		message.error(data.msg);
 	}
 }
 

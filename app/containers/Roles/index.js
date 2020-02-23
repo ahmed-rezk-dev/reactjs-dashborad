@@ -36,7 +36,7 @@ export function Roles({
 	addRoles,
 	form,
 	editRoles,
-	// deleteRoles,
+	deleteRoles,
 	toggleAddModalAction,
 	toggleEditModalAction,
 }) {
@@ -78,8 +78,9 @@ export function Roles({
 		form.resetFields();
 	};
 
-	const handleDelete = key => {
-		console.log('key', key);
+	const handleDelete = record => {
+		const index = roles.data.indexOf(record);
+		deleteRoles({ index, id: record._id });
 	};
 
 	const dataSource = [
@@ -126,7 +127,7 @@ export function Roles({
 						</Button>
 						<Popconfirm
 							title="Sure to delete?"
-							onConfirm={() => handleDelete(record._id)}
+							onConfirm={() => handleDelete(record)}
 						>
 							<Button type="danger" icon="delete">
 								Delete
@@ -202,7 +203,7 @@ Roles.propTypes = {
 	fetchRoles: PropTypes.func.isRequired,
 	addRoles: PropTypes.func.isRequired,
 	editRoles: PropTypes.func.isRequired,
-	// deleteRoles: PropTypes.func.isRequired,
+	deleteRoles: PropTypes.func.isRequired,
 	roles: PropTypes.object.isRequired,
 	form: PropTypes.object,
 	toggleAddModalAction: PropTypes.func.isRequired,
