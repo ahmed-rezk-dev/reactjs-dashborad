@@ -8,11 +8,6 @@
 @normal-color: #d9d9d9;
 @secondary-color: #f7fafc;
 @link-color: #1890ff;
-// @layout-header-background: #4c52bb;
-// @layout-header-background: #2933ab;
-// @layout-header-background: #0064ff;
-// @layout-header-background: #2b3451;
-// @layout-header-background: #613cea;
 @layout-header-background: #6064f4;
 @layout-body-background: #f0f2f5;
 @heading-color: rgba(0, 0, 0, 0.85);
@@ -24,6 +19,7 @@
 @box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
 @white: #fff;
 @black: #000;
+@heading-color: #525f7f;
 
 // Card shadow
 .card-shadow(@level) when (@level = 1) {
@@ -74,6 +70,20 @@
 	'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
 	'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
+@headings-font-family: 'Montserrat', 'Open Sans', -apple-system,
+	BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+	sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+	'Noto Color Emoji';
+
+// headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: @headings-font-family;
+}
 // Vars/Func
 .vertical-align {
 	display: inline-flex;
@@ -90,7 +100,6 @@
 }
 
 // Cards
-// Card Settings
 @max-width: 600px;
 @max-height: fit-content;
 @gutters: 24px;
@@ -135,3 +144,6 @@
 @login-form-max-width: 28rem;
 @login-form-min-width: 28rem;
 // Metric Settings
+
+// Tabs
+@card-head-padding: 2rem;
