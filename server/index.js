@@ -23,6 +23,7 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 const proxy = require('express-http-proxy');
+const chokidar = require('chokidar');
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -193,6 +194,17 @@ app.use(
 		},
 	})
 );
+
+// Files Watcher
+const watcher = chokidar.watch('.');
+watcher.on('ready', () => {
+	watcher.on('all', (event, path) => {
+		console.log(event, path);
+		Object.keys(require.cache).forEach(function(id) {
+			if (/[\/\\]app[\/\\]/.test(id)) delete require.cache[id];
+		});
+	});
+});
 
 // Start your app.
 app.listen(port, err => {
