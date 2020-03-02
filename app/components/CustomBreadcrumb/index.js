@@ -5,20 +5,24 @@
  */
 
 import React from 'react';
-import { Breadcrumb, Icon } from 'antd';
+import { Breadcrumb } from 'antd';
+import * as Icons from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 function CustomBreadcrumb({ currentRoute }) {
+	const MdIcon = Icons[currentRoute.icon];
+	// const GruopIcon = Icons[currentRoute.group.name];
 	const breadcrumbFunc = () => (
 		<>
 			{currentRoute.group !== undefined ? (
 				<Breadcrumb.Item>
-					<Icon type={currentRoute.group.icon} />
+					{/* <div>{currentRoute.group.icon}</div> */}
 					<span>{currentRoute.group.name}</span>
 				</Breadcrumb.Item>
 			) : null}
 			<Breadcrumb.Item>
-				<Icon type={currentRoute.icon} />
+				<MdIcon />
+				{/* {currentRoute.icon} */}
 				<span>{currentRoute.name}</span>
 			</Breadcrumb.Item>
 		</>
@@ -27,7 +31,7 @@ function CustomBreadcrumb({ currentRoute }) {
 	return (
 		<Breadcrumb className="breadcrumb">
 			<Breadcrumb.Item>
-				<Icon type="home" />
+				<Icons.HomeOutlined />
 				<span>Home</span>
 			</Breadcrumb.Item>
 			{breadcrumbFunc()}

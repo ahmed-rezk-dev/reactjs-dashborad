@@ -6,6 +6,7 @@
 import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 import { Dropdown, Badge, Button, Menu } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
@@ -49,7 +50,7 @@ function NotificationsMenu() {
 			className="navbar-dropdown"
 		>
 			<Badge count={1}>
-				<Button icon="bell" />
+				<Button icon={<BellOutlined />} />
 			</Badge>
 		</Dropdown>
 	);

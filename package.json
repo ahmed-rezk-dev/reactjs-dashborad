@@ -73,7 +73,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
     "@octokit/rest": "^16.28.6",
-    "antd": "^3.26.6",
+    "antd": "^4.0.0",
     "apexcharts": "^3.15.2",
     "apisauce": "^1.1.1",
     "axios": "^0.19.1",

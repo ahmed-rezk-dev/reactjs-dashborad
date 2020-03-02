@@ -86,7 +86,7 @@ function ForgetPasswordUsingEmail({
 							type="password"
 							placeholder="Password"
 							size="large"
-						/>,
+						/>
 					)}
 				</Form.Item>
 				<Form.Item hasFeedback>
@@ -107,7 +107,7 @@ function ForgetPasswordUsingEmail({
 							placeholder="Confirm Password"
 							size="large"
 							onBlur={handleConfirmBlur}
-						/>,
+						/>
 					)}
 				</Form.Item>
 				<Form.Item>
@@ -145,5 +145,5 @@ ForgetPasswordUsingEmail.propTypes = {
 	location: PropTypes.object,
 	form: PropTypes.object,
 };
-const WrappedForm = Form.create({ name: 'reset_password_form' });
-export default compose(memo, WrappedForm)(ForgetPasswordUsingEmail);
+
+export default compose(memo)(ForgetPasswordUsingEmail);

@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
 			picture: String,
 		},
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
 
 /**
@@ -65,7 +65,7 @@ userSchema.pre('save', function save(next) {
  */
 userSchema.methods.comparePassword = function comparePassword(
 	candidatePassword,
-	cb,
+	cb
 ) {
 	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
 		cb(err, isMatch);

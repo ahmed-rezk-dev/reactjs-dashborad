@@ -7,7 +7,14 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { Dropdown, Menu, Button, Icon } from 'antd';
+import { Dropdown, Menu, Button } from 'antd';
+import {
+	MenuOutlined,
+	UserOutlined,
+	SettingOutlined,
+	BulbOutlined,
+	LogoutOutlined,
+} from '@ant-design/icons';
 import { removeAuthToken } from '../../utils/Auth';
 import { setCurrentUser } from '../../containers/App/actions';
 import configureStore from '../../configureStore';
@@ -26,26 +33,26 @@ function UserMenu({ history }) {
 		<Menu>
 			<Menu.Item className="menu-item">
 				<a rel="noopener noreferrer" href="#....">
-					<Icon type="user" />
+					<UserOutlined />
 					My Profile
 				</a>
 			</Menu.Item>
 			<Menu.Item className="menu-item">
 				<a rel="noopener noreferrer" href="#....">
-					<Icon type="setting" />
+					<SettingOutlined />
 					Settings
 				</a>
 			</Menu.Item>
 			<Menu.Item className="menu-item">
 				<a rel="noopener noreferrer" href="#....">
-					<Icon type="bulb" />
+					<BulbOutlined />
 					Support
 				</a>
 			</Menu.Item>
 			<Menu.Divider />
 			<Menu.Item className="menu-item" onClick={() => logout()}>
 				<div>
-					<Icon type="logout" />
+					<LogoutOutlined />
 					<FormattedMessage {...messages.logout} />
 				</div>
 			</Menu.Item>
@@ -58,7 +65,7 @@ function UserMenu({ history }) {
 			placement="bottomLeft"
 			className="navbar-dropdown"
 		>
-			<Button icon="menu" />
+			<Button icon={<MenuOutlined />} />
 		</Dropdown>
 	);
 }

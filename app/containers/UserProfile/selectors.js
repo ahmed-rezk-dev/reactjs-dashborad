@@ -6,6 +6,7 @@ import { initialState } from './reducer';
  */
 
 const selectUserProfileDomain = state => state.userProfile || initialState;
+const selectUserOFGlobal = state => state.global.auth.user || initialState;
 
 /**
  * Other specific selectors
@@ -16,10 +17,7 @@ const selectUserProfileDomain = state => state.userProfile || initialState;
  */
 
 const makeSelectUserProfile = () =>
-  createSelector(
-    selectUserProfileDomain,
-    substate => substate,
-  );
+	createSelector(selectUserOFGlobal, substate => substate);
 
 export default makeSelectUserProfile;
 export { selectUserProfileDomain };

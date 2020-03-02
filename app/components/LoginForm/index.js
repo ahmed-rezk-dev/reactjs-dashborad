@@ -47,7 +47,7 @@ function LoginForm({ fetching, changeFormReducer, loginDis, form }) {
 							prefix={<Icon type="mail" />}
 							placeholder="Email"
 							size="large"
-						/>,
+						/>
 					)}
 				</Form.Item>
 				<Form.Item hasFeedback>
@@ -59,7 +59,7 @@ function LoginForm({ fetching, changeFormReducer, loginDis, form }) {
 							type="password"
 							placeholder="Password"
 							size="large"
-						/>,
+						/>
 					)}
 				</Form.Item>
 				<Form.Item>
@@ -100,6 +100,4 @@ LoginForm.propTypes = {
 	form: PropTypes.object,
 };
 
-const WrappedForm = Form.create({ name: 'login_form' });
-
-export default compose(memo, WrappedForm)(LoginForm);
+export default compose(memo)(LoginForm);

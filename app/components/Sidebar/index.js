@@ -7,7 +7,8 @@
 import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu } from 'antd';
+import * as Icons from '@ant-design/icons';
 import { Spring, animated } from 'react-spring/renderprops';
 // Style
 import './style.less';
@@ -47,34 +48,37 @@ const Sidebar = ({ toggle, collapsed, routes, history, currentRoute }) => {
 	getRoutes.forEach((prop, key) => {
 		if (key === 'single') {
 			prop.forEach(singleItem => {
+				const Icon = Icons[singleItem.icon];
 				const linkTo = singleItem.layout + singleItem.path;
 				links.push(
 					<Menu.Item key={linkTo} className="menuItem">
 						<NavLink to={linkTo} key={singleItem.path}>
-							<Icon className="navbar-title-icon" type={singleItem.icon} />
+							<Icon />
 							<span>{singleItem.name}</span>
 						</NavLink>
 					</Menu.Item>
 				);
 			});
 		} else {
+			const SubMenuIcon = Icons[key.icon];
 			links.push(
 				<SubMenu
 					className="navbar-subMenu"
 					key={key.name}
 					title={
 						<span className="navbar-subMenu-title">
-							<Icon className="navbar-title-icon" type={key.icon} />
+							<SubMenuIcon />
 							<span>{key.name}</span>
 						</span>
 					}
 				>
 					{prop.map(groupItem => {
 						const linkTo = `${groupItem.layout}/${groupItem.group.name}${groupItem.path}`;
+						const GroupItemIcon = Icons[groupItem.icon];
 						return (
 							<Menu.Item key={linkTo} className="navbar-subMenu-item">
 								<NavLink to={linkTo} key={groupItem.path}>
-									<Icon className="navbar-title-icon" type={groupItem.icon} />
+									<GroupItemIcon />
 									<span>{groupItem.name}</span>
 								</NavLink>
 							</Menu.Item>

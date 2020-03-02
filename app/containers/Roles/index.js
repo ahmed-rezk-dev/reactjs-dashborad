@@ -12,6 +12,11 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 // UI
 import { Table, Input, Button, Popconfirm, Form, Modal, Card } from 'antd';
+import {
+	EditOutlined,
+	DeleteOutlined,
+	PlusCircleOutlined,
+} from '@ant-design/icons';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 // import TableSkeleton from 'components/TableSkeleton';
@@ -34,7 +39,6 @@ export function Roles({
 	fetchRoles,
 	roles,
 	addRoles,
-	form,
 	editRoles,
 	deleteRoles,
 	toggleAddModalAction,
@@ -43,6 +47,7 @@ export function Roles({
 	useInjectReducer({ key: 'roles', reducer });
 	useInjectSaga({ key: 'roles', saga });
 	const [editFromValues, setEditFromValues] = useState(null);
+	const [form] = Form.useForm();
 
 	useEffect(() => {
 		fetchRoles();
@@ -56,22 +61,14 @@ export function Roles({
 	};
 
 	// Edit sublimation func
-	const handleEdit = e => {
-		e.preventDefault();
-		form.validateFields((err, values) => {
-			if (!err) {
-				editRoles({ ...values, ...editFromValues });
-			}
-		});
+	const handleEdit = () => {
+		const values = form.getFieldValue();
+		editRoles({ ...values, ...editFromValues });
 	};
 	// Add sublimation func
-	const handleAdd = e => {
-		e.preventDefault();
-		form.validateFields((err, values) => {
-			if (!err) {
-				addRoles(values);
-			}
-		});
+	const handleAdd = () => {
+		const values = form.getFieldValue();
+		addRoles(values);
 	};
 
 	const afterCloseHandler = () => {
@@ -120,7 +117,7 @@ export function Roles({
 					<div className="table-buttons-container">
 						<Button
 							type="primary"
-							icon="edit"
+							icon={<EditOutlined />}
 							onClick={() => openEditModalHandler(record)}
 						>
 							Edit
@@ -129,7 +126,7 @@ export function Roles({
 							title="Sure to delete?"
 							onConfirm={() => handleDelete(record)}
 						>
-							<Button type="danger" icon="delete">
+							<Button type="danger" icon={<DeleteOutlined />}>
 								Delete
 							</Button>
 						</Popconfirm>
@@ -138,8 +135,6 @@ export function Roles({
 		},
 	];
 
-	const { getFieldDecorator } = form;
-
 	return (
 		<div>
 			<Button
@@ -147,7 +142,7 @@ export function Roles({
 				type="primary"
 				size="large"
 				title="Add New"
-				icon="plus-circle"
+				icon={<PlusCircleOutlined />}
 				onClick={() => toggleAddModalAction()}
 			>
 				Add New
@@ -162,16 +157,17 @@ export function Roles({
 				onCancel={() => toggleEditModalAction()}
 				afterClose={() => afterCloseHandler()}
 			>
-				<Form className="add-role">
-					<Form.Item hasFeedback>
-						{getFieldDecorator('name', {
-							rules: [
-								{
-									required: true,
-									message: 'Please enter role name!',
-								},
-							],
-						})(<Input placeholder="Role Name" size="large" />)}
+				<Form className="add-role" form={form}>
+					<Form.Item
+						name="name"
+						rules={[
+							{
+								required: true,
+								message: 'Please enter role name!',
+							},
+						]}
+					>
+						<Input placeholder="Role Name" size="large" />
 					</Form.Item>
 				</Form>
 			</Modal>
@@ -182,16 +178,17 @@ export function Roles({
 				onCancel={() => toggleAddModalAction()}
 				confirmLoading={roles.isLoading}
 			>
-				<Form className="add-role">
-					<Form.Item hasFeedback>
-						{getFieldDecorator('name', {
-							rules: [
-								{
-									required: true,
-									message: 'Please enter role name!',
-								},
-							],
-						})(<Input placeholder="Role Name" size="large" />)}
+				<Form className="add-role" form={form}>
+					<Form.Item
+						name="name"
+						rules={[
+							{
+								required: true,
+								message: 'Please enter role name!',
+							},
+						]}
+					>
+						<Input placeholder="Role Name" size="large" />
 					</Form.Item>
 				</Form>
 			</Modal>
@@ -205,7 +202,6 @@ Roles.propTypes = {
 	editRoles: PropTypes.func.isRequired,
 	deleteRoles: PropTypes.func.isRequired,
 	roles: PropTypes.object.isRequired,
-	form: PropTypes.object,
 	toggleAddModalAction: PropTypes.func.isRequired,
 	toggleEditModalAction: PropTypes.func.isRequired,
 };
@@ -226,6 +222,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const WrappedForm = Form.create({ name: 'add_role_form' });
 
-export default compose(withConnect, memo, WrappedForm)(Roles);
+export default compose(withConnect, memo)(Roles);

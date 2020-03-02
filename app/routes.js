@@ -6,7 +6,7 @@ import UserProfile from './containers/UserProfile/Loadable';
 
 const userGroup = {
 	name: 'users',
-	icon: 'user',
+	icon: 'UserOutlined',
 };
 
 const dashboardRoutes = [
@@ -14,7 +14,7 @@ const dashboardRoutes = [
 		path: '/dashboard',
 		name: 'Dashboard',
 		rtlName: 'لوحة القيادة',
-		icon: 'dashboard',
+		icon: 'DashboardOutlined',
 		component: DashboardPage,
 		layout: '/admin',
 	},
@@ -22,7 +22,7 @@ const dashboardRoutes = [
 		path: '/profile',
 		name: 'User Profile',
 		rtlName: 'ملف تعريفي للمستخدم',
-		icon: 'user',
+		icon: 'UserOutlined',
 		component: UserProfile,
 		layout: '/admin',
 	},
@@ -31,7 +31,7 @@ const dashboardRoutes = [
 		group: userGroup,
 		name: 'All Users',
 		rtlName: 'مستخدمين',
-		icon: 'like',
+		icon: 'LikeOutlined',
 		component: RolesPage,
 		layout: '/admin',
 	},
@@ -40,7 +40,7 @@ const dashboardRoutes = [
 		group: userGroup,
 		name: 'Users Groups',
 		rtlName: 'ملف تعريفي للمستخدم',
-		icon: 'like',
+		icon: 'LikeOutlined',
 		component: RolesPage,
 		layout: '/admin',
 	},

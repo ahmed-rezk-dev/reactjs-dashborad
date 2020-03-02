@@ -52,7 +52,7 @@ function ForgetPasswordUsingEmail({
 							prefix={<Icon type="mail" />}
 							placeholder="Email"
 							size="large"
-						/>,
+						/>
 					)}
 				</Form.Item>
 				<Form.Item>
@@ -83,8 +83,4 @@ ForgetPasswordUsingEmail.propTypes = {
 	changeFormReducer: PropTypes.func,
 	fetching: PropTypes.bool,
 };
-const WrappedForm = Form.create({
-	name: 'forget_password_using_email_form',
-});
-
-export default compose(memo, WrappedForm)(ForgetPasswordUsingEmail);
+export default compose(memo)(ForgetPasswordUsingEmail);

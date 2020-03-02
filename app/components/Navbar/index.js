@@ -31,11 +31,11 @@ function Navbar({ collapsed, toggle, history, currentRoute }) {
 					<Header className="mainContainer">
 						<Row type="flex" align="middle">
 							<Col span={1}>
-								<Icon
+								{/* <Icon
 									className="trigger"
 									type={collapsed ? 'menu-unfold' : 'menu-fold'}
 									onClick={toggle}
-								/>
+								/> */}
 							</Col>
 							<Col span={21}>
 								<CustomBreadcrumb
